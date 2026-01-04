@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Templates - Skills, Prompts & Configs for OpenAI Codex CLI</title>
+    <meta name="description" content="1000+ ready-to-use skills, prompts, and configurations for OpenAI Codex CLI. Multi-model support with Claude and Gemini integration. Terminal velocity development.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Codex Templates - Skills for OpenAI Codex CLI">
+    <meta property="og:description" content="1000+ skills, prompts, and configs for Codex. Multi-model collaboration with Claude and Gemini.">
+    <meta property="og:image" content="social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Codex Templates - Skills for OpenAI Codex CLI">
+    <meta property="twitter:description" content="1000+ skills, prompts, and configs for Codex. Multi-model collaboration.">
+
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-green: #3fb950;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+            --border-color: #30363d;
+            --terminal-green: #00ff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            background: var(--bg-secondary);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .logo-badge {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .hero-terminal {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-content {
+            font-size: 14px;
+        }
+
+        .terminal-line {
+            margin: 8px 0;
+        }
+
+        .prompt {
+            color: var(--accent-green);
+        }
+
+        .command {
+            color: var(--text-primary);
+        }
+
+        .output {
+            color: var(--text-secondary);
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Installation */
+        .install-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .install-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .install-command {
+            font-size: 1.1rem;
+            color: var(--accent-green);
+        }
+
+        .copy-btn {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-green);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            color: var(--accent-green);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Component Types */
+        .component-types {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .component-types h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .type-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .type-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .type-name {
+            color: var(--text-primary);
+            margin: 8px 0;
+        }
+
+        .type-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Multi-Model */
+        .multi-model {
+            padding: 80px 0;
+        }
+
+        .multi-model h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .multi-model-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        .model-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .model-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .model-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .model-card.codex { border-top: 3px solid var(--accent-green); }
+        .model-card.claude { border-top: 3px solid var(--accent-orange); }
+        .model-card.gemini { border-top: 3px solid var(--accent-purple); }
+
+        .model-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .model-strength {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .model-best {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .install-box {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">> codex-templates</span>
+                    <span class="logo-badge">v1.0.0</span>
+                </div>
+                <nav class="nav-links">
+                    <a href="#skills">Skills</a>
+                    <a href="#prompts">Prompts</a>
+                    <a href="#configs">Configs</a>
+                    <a href="https://github.com/davila7/codex-templates" target="_blank">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command"> npm install -g codex-templates</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command"> codex-templates install skill code-reviewer</span>
+                        </div>
+                        <div class="terminal-line output">
+                            <span class="highlight">✓</span> Installed skill: code-reviewer
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command"> codex "$code-reviewer"</span>
+                        </div>
+                        <div class="terminal-line output">
+                            Reviewing code for quality, security, and maintainability...
+                        </div>
+                    </div>
+                </div>
+
+                <h1>Codex Templates</h1>
+                <p>1000+ ready-to-use skills, prompts, and configurations for OpenAI Codex CLI. Multi-model collaboration with Claude and Gemini.</p>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">871+</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">164+</div>
+                        <div class="stat-label">Agents</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">AI Models</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="install-section">
+            <div class="container">
+                <div class="install-box">
+                    <code class="install-command">npm install -g codex-templates</code>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText('npm install -g codex-templates')">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Why Codex Templates?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Skill-Based Architecture</h3>
+                        <p>Modular SKILL.md files that Codex auto-discovers and selects based on your task.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔀</div>
+                        <h3>Multi-Model Routing</h3>
+                        <p>Intelligent routing between Codex, Claude, and Gemini based on task requirements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Persistent Memory</h3>
+                        <p>Remember facts and context across sessions with the memory-persist skill.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Autonomous Loops</h3>
+                        <p>Long-running autonomous tasks with iteration control and completion detection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌳</div>
+                        <h3>Worktree Manager</h3>
+                        <p>Parallel development with git worktrees for multiple Codex instances.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Terminal Velocity</h3>
+                        <p>Optimized for speed with Codex's native autonomous mode integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="component-types" id="skills">
+            <div class="container">
+                <h2>Component Types</h2>
+                <div class="types-grid">
+                    <div class="type-card">
+                        <div class="type-count">871</div>
+                        <div class="type-name">Skills</div>
+                        <div class="type-desc">Reusable SKILL.md bundles with scripts and references</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="type-count">164</div>
+                        <div class="type-name">Agents</div>
+                        <div class="type-desc">AGENTS.md profiles for specialized roles</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="type-count">200+</div>
+                        <div class="type-name">Prompts</div>
+                        <div class="type-desc">Custom prompts for common workflows</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="type-count">10+</div>
+                        <div class="type-name">Configs</div>
+                        <div class="type-desc">Multi-model config.toml profiles</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="multi-model">
+            <div class="container">
+                <h2>Multi-Model Collaboration</h2>
+                <p class="multi-model-subtitle">Route tasks to the best AI model for the job</p>
+                <div class="model-cards">
+                    <div class="model-card codex">
+                        <div class="model-name">GPT-5.1-Codex</div>
+                        <div class="model-strength">Terminal Mastery</div>
+                        <div class="model-best">
+                            Best for: Long sessions, DevOps, refactors, quick implementations
+                        </div>
+                    </div>
+                    <div class="model-card claude">
+                        <div class="model-name">Claude Opus 4.5</div>
+                        <div class="model-strength">80.9% SWE-bench</div>
+                        <div class="model-best">
+                            Best for: Architecture, accuracy, complex logic, planning
+                        </div>
+                    </div>
+                    <div class="model-card gemini">
+                        <div class="model-name">Gemini 3 Pro</div>
+                        <div class="model-strength">1501 Elo</div>
+                        <div class="model-best">
+                            Best for: Algorithms, competitive coding, speed, free tier
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/davila7/codex-templates">GitHub</a>
+                <a href="https://developers.openai.com/codex">Codex Docs</a>
+                <a href="https://discord.gg/dyTTwzBhwY">Discord</a>
+            </div>
+            <p>Built for OpenAI Codex CLI • MIT License</p>
+        </div>
+    </footer>
+</body>
+</html>
