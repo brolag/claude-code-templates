@@ -1,0 +1,103 @@
+# Codex Templates - Multi-Model Configuration
+# Supports routing between Codex, Claude, and Gemini based on task type
+
+# Default model for general tasks
+model = "gpt-5.1-codex"
+
+# Approval policy: "untrusted" (recommended), "on-failure", "on-request", "never"
+approval_policy = "untrusted"
+
+# Reasoning configuration
+[reasoning]
+summary = "detailed"
+effort = "high"
+
+# Shell environment policy
+[shell_environment_policy]
+inherit = "all"
+exclude = ["AWS_*", "AZURE_*", "OPENAI_API_KEY", "ANTHROPIC_API_KEY"]
+set = { CODEX_TEMPLATES = "1" }
+
+# Project root detection
+project_root_markers = [".git", ".hg", "package.json", "Cargo.toml", "go.mod"]
+
+# AGENTS.md configuration
+project_doc_max_bytes = 65536
+project_doc_fallback_filenames = ["AGENTS.md", "CLAUDE.md", ".agents.md"]
+
+# ============================================
+# MCP Servers for Multi-Model Collaboration
+# ============================================
+
+# Claude integration via MCP
+[mcp_servers.claude]
+command = "npx"
+args = ["-y", "@anthropic-ai/claude-code", "--as-mcp-server"]
+description = "Claude for complex architecture and accuracy-critical tasks"
+
+# Exa web search
+[mcp_servers.exa]
+type = "sse"
+url = "https://mcp.exa.ai/sse"
+description = "Web search for up-to-date information"
+
+# ============================================
+# Profiles for Different Use Cases
+# ============================================
+
+# High accuracy mode - routes to Claude
+[profiles.accuracy]
+model = "claude-opus-4-5"
+provider = "anthropic"
+approval_policy = "untrusted"
+
+[profiles.accuracy.reasoning]
+summary = "detailed"
+effort = "high"
+
+# Fast mode - routes to Gemini
+[profiles.fast]
+model = "gemini-2.0-flash"
+provider = "google"
+approval_policy = "on-request"
+
+[profiles.fast.reasoning]
+summary = "auto"
+effort = "low"
+
+# Terminal mastery mode - Codex strengths
+[profiles.terminal]
+model = "gpt-5.1-codex-max"
+approval_policy = "on-failure"
+
+[profiles.terminal.reasoning]
+summary = "auto"
+effort = "high"
+
+# Long autonomous sessions
+[profiles.autonomous]
+model = "gpt-5.1-codex-max"
+approval_policy = "never"
+
+[profiles.autonomous.reasoning]
+summary = "detailed"
+effort = "xhigh"
+
+# ============================================
+# Sandbox Configuration
+# ============================================
+
+[sandbox]
+mode = "workspace-write"
+network_access = ["api.github.com", "registry.npmjs.org", "pypi.org"]
+
+# ============================================
+# Skills Configuration
+# ============================================
+
+# Custom skill discovery paths
+[skills]
+paths = [
+    "~/.codex/skills",
+    "./.codex/skills",
+]
