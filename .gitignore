@@ -54,3 +54,10 @@ test-cloudflare/
 
 # Deployment
 .vercel
+
+# Claude Code local files
+.claude/settings.local.json
+.claude/memory/events/
+.claude/logs/
+.claude/checkpoints/
+.claude/voice/
